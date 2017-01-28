@@ -1,4 +1,5 @@
 
-public class GroupChat {
-
+public class GroupChat
+{
+	//
 }
