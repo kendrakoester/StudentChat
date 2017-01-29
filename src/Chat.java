@@ -1,19 +1,36 @@
+import java.util.Random;
 
 public class Chat
 {
-	public String getChatters(String s1, String s2)
+	public Random random = new Random();
+	
+
+	public Student getChatters(Student s1, Student s2)
 	{
-		return "";
+		
+		
+		return  s1;
 		
 	}
 	
-	public String verifyChatters(String s1, String s2)
+	
+	
+	public boolean verifyChatters(Student s1, Student s2)
 	{
+		boolean diff = false;
+		
 		if(s1 != s2)
 		{
-			return s1 + s2;
+			return diff = true;
 		}
 		
-		return "Get new chatters";		
+		return diff;		
 	}
+	
+	public String printConversation()
+	{
+		String conversation = null;
+		return conversation.toString();
+	}
+	
 }

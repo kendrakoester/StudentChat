@@ -1,6 +1,21 @@
+import java.util.Random;
 
 public class Responses 
 {
+	public Random random = new Random();
+	
+	public int[] getResponses()
+	{
+		int  one = random.nextInt(5) + 1;
+		int two = random.nextInt(10) + 6;
+		int three = random.nextInt(15) + 11;
+		int four = random.nextInt(20) + 16;
+		int five = random.nextInt(25) + 21;
+		
+		int[] responses = {one, two, three, four, five};
+		return responses;
+	}
+	
 	public String GetResponse(int responseType)
 	{
 		switch(responseType)
