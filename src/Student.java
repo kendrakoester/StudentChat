@@ -18,6 +18,7 @@ public class Student
 		this.chatResponses = chatResponses;
 	}
 	
+	
 	public Student[] getArray()
 	{
 		Student studentOne = new Student("Nathan", "Borup", 1, "chatResponses");

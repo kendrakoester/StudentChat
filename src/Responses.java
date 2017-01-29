@@ -26,7 +26,7 @@ public class Responses
 			case 19:	return "Goodnight";
 			case 20:	return "Too Da Loo";
 		}
-		return "";
+		return "You have an ID ten T error. Please try again.";
 
 	}
 }
