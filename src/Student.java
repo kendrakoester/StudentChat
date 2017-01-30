@@ -7,47 +7,64 @@ import java.util.Set;
 
 public class Student 
 {
+	public String firstName;
+	public String lastName;
+	public int score;
+	public ArrayList responses;
 	
-	private String firstName;
-	private String lastName;
-	private int score;
-	
-	public Student(String firstName, String lastName, int score) 
+	public Student(String firstName, String lastName, int score, ArrayList responses) 
 	{
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.score = score;
+		this.responses = responses;
 	}
 	
 	
-	public String getFirstName() {
+	public String getFirstName() 
+	{
 		return firstName;
 	}
 
 
-	public void setFirstName(String firstName) {
+	public void setFirstName(String firstName) 
+	{
 		this.firstName = firstName;
 	}
 
 
-	public String getLastName() {
+	public String getLastName() 
+	{
 		return lastName;
 	}
 
 
-	public void setLastName(String lastName) {
+	public void setLastName(String lastName) 
+	{
 		this.lastName = lastName;
 	}
 
 
-	public int getScore() {
+	public int getScore() 
+	{
 		return score;
 	}
 
 
-	public void setScore(int score) {
+	public void setScore(int score) 
+	{
 		this.score = score;
+	}
+	
+	public ArrayList getResponses()
+	{
+		return responses;
+	}
+	
+	public void setResponses()
+	{
+		this.responses = responses;
 	}
 	
 	public static void sortStudents(ArrayList<Student> studentList) 
@@ -76,7 +93,7 @@ public class Student
     @Override
     public String toString() 
     {
-        return "firstName= " + firstName + ", lastName =" + lastName + "\n";
+        return "firstName: " + firstName + " lastName: " + lastName + " Responses: " + responses + "\n";
     }
 
 

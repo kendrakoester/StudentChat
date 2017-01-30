@@ -21,18 +21,19 @@ public class studentChat
 //		//List<Student> stringsList = new ArrayList(students);
 //		System.out.println(students.get(3));
 		
-		ArrayList<Student> studentList = new ArrayList<Student>();
-		studentList.add(new Student ("Nathan", "Borup", 1));
-		studentList.add(new Student("Ethan", "Brown", 2));
-		studentList.add(new Student("Michael", "Cullimore", 3));
-		studentList.add(new Student("Kendra", "Koester", 4));
-		studentList.add(new Student("Cody", "May", 5));
-		studentList.add(new Student("Brie", "Miller", 6));
-		studentList.add(new Student("Rizwan", "Mohammed", 7));
-		studentList.add(new Student("Lauren", "Ribiro", 8));
-		studentList.add(new Student("Tyler", "Toponce", 9));
+		Set<Student> students = new HashSet<Student>();
+		ArrayList<Responses> res = new ArrayList<Responses>();
+		students.add(new Student ("Nathan", "Borup", 1, res));
+		students.add(new Student("Ethan", "Brown", 2, res));
+		students.add(new Student("Michael", "Cullimore", 3, res));
+		students.add(new Student("Kendra", "Koester", 4, res));
+		students.add(new Student("Cody", "May", 5, res));
+		students.add(new Student("Brie", "Miller", 6, res));
+		students.add(new Student("Rizwan", "Mohammed", 7, res));
+		students.add(new Student("Lauren", "Ribiro", 8, res));
+		students.add(new Student("Tyler", "Toponce", 9, res));
 		
-		System.out.println(studentList);
+		System.out.println(students);
 		
 		 
 		
