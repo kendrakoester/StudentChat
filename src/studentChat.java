@@ -1,9 +1,4 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
 public class studentChat 
@@ -11,39 +6,67 @@ public class studentChat
 
 	public static void main(String[] args) 
 	{
-//		Student student = new Student(null, null, 0, null);
-//		ArrayList<Student> students = new ArrayList<Student>();
-//		//Set<Student> students = new HashSet<Student>();
-//		students = student.StudentHashSet(student.getArray());
-//		System.out.println(students);
-//		
-//		//List<Student> stringsList = new ArrayList(students);
-//		System.out.println(students.get(3));
+		
+		Responses response	 = new Responses("", "", "", "", "");
+		Student student = new Student("", "", 0, response);
+		Conversation conversation = new Conversation();
 		
 		Set<Student> students = new HashSet<Student>();
-		ArrayList<Responses> res = new ArrayList<Responses>();
-		students.add(new Student ("Nathan", "Borup", 1, res));
-		students.add(new Student("Ethan", "Brown", 2, res));
-		students.add(new Student("Michael", "Cullimore", 3, res));
-		students.add(new Student("Kendra", "Koester", 4, res));
-		students.add(new Student("Cody", "May", 5, res));
-		students.add(new Student("Brie", "Miller", 6, res));
-		students.add(new Student("Rizwan", "Mohammed", 7, res));
-		students.add(new Student("Lauren", "Ribiro", 8, res));
-		students.add(new Student("Tyler", "Toponce", 9, res));
 		
-		System.out.println(students);
+		students = student.StudentHashSet(student.getArray());
 		
-		 
+		Student s1 = student.getRandomStudent(students);
+		Student s2 = student.getRandomStudent(students);
 		
-		//create a method to pick two random students to send to the student class
+		if(s1 != s2)
+		{
+			String sOneCOne = s1.getResponses()[0];
+			System.out.println(s1 + sOneCOne);
+			
+			String sTwoCOne = s2.getResponses()[0];
+			System.out.println(s2 + sTwoCOne);
+			
+			String sOneCTwo = s1.getResponses()[1];
+			System.out.println(s1 + sOneCTwo);
+			
+			String sTwoCTwo = s2.getResponses()[1];
+			System.out.println(s2 + sTwoCTwo);
+			
+			String sOneCThree = s1.getResponses()[2];
+			System.out.println(s1 + sOneCThree);
+			
+			String sTwoCThree = s2.getResponses()[2];
+			System.out.println(s2 + sTwoCThree);
+			
+			String sOneCFour = s1.getResponses()[3];
+			System.out.println(s1 + sOneCFour);
+			
+			String sTwoCFour = s2.getResponses()[3];
+			System.out.println(s2 + sTwoCFour);
+			
+			String sOneCFive = s1.getResponses()[4];
+			System.out.println(s1 + sOneCFive);
+			
+			String sTwoCFive = s2.getResponses()[4];
+			System.out.println(s2 + sTwoCFive);
+		}
+		else
+		{
+			s2 = student.getRandomStudent(students);
+		}
+
+//		String sOneCOne = s1.getResponses()[0];
+//		String sOneCTwo = s1.getResponses()[1];
+//		String sOneCThree = s1.getResponses()[2];
+//		String sOneCFour = s1.getResponses()[3];
+//		String sOneCFive = s1.getResponses()[4];
+//		
+//		String sTwoCOne = s2.getResponses()[0];
+//		String sTwoCTwo = s2.getResponses()[1];
+//		String sTwoCThree = s2.getResponses()[2];
+//		String sTwoCFour = s2.getResponses()[3];
+//		String sTwoCFive = s2.getResponses()[4];
 		
-		//create method to pick random responses
-			//remove users
-			//add users to chat
-			//student.getResponse(randomNumber);
-		
-		//Print out conversation
 		
 		   
 	}
