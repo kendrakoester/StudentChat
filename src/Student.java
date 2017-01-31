@@ -1,8 +1,4 @@
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -108,41 +104,6 @@ public class Student
 		return students;
 	}
 	
-//	public ArrayList<Student> StudentHashSet(Student[] studentArray)
-//	{
-//		ArrayList<Student> students = new ArrayList<Student>();
-//		for(Student student: studentArray)
-//		{
-//			students.add(student);	
-//		}
-//		
-//		return students;
-//	}
-	
-	public static void sortStudents(ArrayList<Student> studentList) 
-	 {
-		    for (int i = 0; i < studentList.size(); i++)
-		    {
-		        for (int j = 0; j < studentList.size(); j++) 
-		        {
-		            Collections.sort(studentList, new Comparator<Student>(){
-						public int compare(Student s1, Student s2) 
-						{
-							Student student1 = (Student) s1;
-		                    Student student2 = (Student) s2;
-		                    int res =  student1.getLastName().compareToIgnoreCase(student2.getLastName());
-		                    if (res != 0)
-		                    {
-		                        return res;
-		                    }
-		                    return student1.getFirstName().compareToIgnoreCase(student2.getFirstName());
-						}
-		            });
-		        }
-
-		    }
-	}
-    
     public Student getRandomStudent(Set<Student> students)
     {
     	  Student randStudent;
@@ -151,9 +112,7 @@ public class Student
     	  randStudent = (Student) studentArray[num]; 
     	  return randStudent;
     }
-    
-    
-
+        
    @Override
    public String toString() 
    {
