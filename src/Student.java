@@ -10,9 +10,11 @@ public class Student
 	public String firstName;
 	public String lastName;
 	public int score;
-	public ArrayList responses;
+	public String convoPiece;
 	
-	public Student(String firstName, String lastName, int score, ArrayList responses) 
+	Responses responses = new Responses(convoPiece, convoPiece, convoPiece, convoPiece, convoPiece);
+	
+	public Student(String firstName, String lastName, int score, Responses responses) 
 	{
 		super();
 		this.firstName = firstName;
@@ -57,9 +59,16 @@ public class Student
 		this.score = score;
 	}
 	
-	public ArrayList getResponses()
+	public String[] getResponses()
 	{
-		return responses;
+		String[] responseArray = {
+		responses.getHello(),
+		responses.getChatOne(),
+		responses.getChatTwo(),
+		responses.getChatThree(),
+		responses.getBye()
+		};
+		return responseArray;
 	}
 	
 	public void setResponses()

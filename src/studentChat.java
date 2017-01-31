@@ -9,7 +9,6 @@ import java.util.Set;
 public class studentChat 
 {
 
-	@SuppressWarnings("unchecked")
 	public static void main(String[] args) 
 	{
 //		Student student = new Student(null, null, 0, null);

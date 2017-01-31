@@ -73,12 +73,12 @@ public class Responses
 		int  num = random.nextInt(10) + 1;
 		switch(num)
 		{
-			case 1: return "How is your homework coming?"; 
+			case 1: return ""; 
 			case 2: return "";
-			case 3: return "Tacos are the best!";
+			case 3: return "";
 			case 4: return "";
 			case 5:	return "";
-			case 6: return "I love puppies!";	
+			case 6: return "";	
 			case 7:	return "";
 			case 8:	return "";
 			case 9:	return "";
@@ -98,12 +98,12 @@ public class Responses
 		int  num = random.nextInt(10) + 1;
 		switch(num)
 		{
-			case 1: return "How is your homework coming?"; 
+			case 1: return "How is the weather?"; 
 			case 2: return "";
-			case 3: return "Tacos are the best!";
+			case 3: return "";
 			case 4: return "";
 			case 5:	return "";
-			case 6: return "I love puppies!";	
+			case 6: return "";	
 			case 7:	return "";
 			case 8:	return "";
 			case 9:	return "";
