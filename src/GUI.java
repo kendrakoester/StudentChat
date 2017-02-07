@@ -6,20 +6,26 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
+import com.sun.glass.events.KeyEvent;
+
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
 
 public class GUI extends JFrame implements ActionListener
 {
 	JFrame frame;
-	JPanel headPanel, chatPanel,textPanel, sendPanel;
+	JPanel mainPanel, headPanel, chatPanel,textPanel, sendPanel;
 	JLabel headLabel;
-	JScrollPane chatPane;
-	JTextArea chatTextArea;
+	JScrollPane chatScrollPane, textScrollPane;
+	JTextArea chatTextArea, textTextArea;
 	JButton sendButton;
+	
+	Conversation conversation = new Conversation();
+	
 	
 	public GUI()
 	{
@@ -29,49 +35,103 @@ public class GUI extends JFrame implements ActionListener
 	public void showGUI()
 	{
 		frame = new JFrame();
+				
+		//main panel
+		mainPanel = new JPanel(new GridLayout(4,1,0,0));
+		frame.add(mainPanel);
+		mainPanel.setVisible(true);
 		
-		setLayout(new GridLayout(4,1));		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("Student Chat GUI");
-		setSize(new Dimension(300,400));
-		setVisible(true);
-		
-		headPanel = new JPanel(new FlowLayout());
+		//header Panel
+		headPanel = new JPanel();
 		
 		headLabel = new JLabel("Student Chat GUI");
 		headPanel.add(headLabel);
+		headPanel.setVisible(true);
 		
-		chatPanel = new JPanel(new FlowLayout());
+		//chat Panel
+		chatPanel = new JPanel();
 		
-		chatTextArea = new JTextArea(16, 58);
-		chatTextArea.setEditable(false); // set textArea non-editable
-		chatPane = new JScrollPane(chatTextArea);
-		chatPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		chatPanel.add(chatPane);
+		chatTextArea = new JTextArea(10,40);
+		chatTextArea.setLineWrap(true);
+		chatTextArea.setEditable(false);
+		chatTextArea.append(conversation.toString());
+		chatScrollPane = new JScrollPane(chatTextArea);
+		chatScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		
-		textPanel = new JPanel(new FlowLayout());
+		chatPanel.add(chatScrollPane);
+		chatPanel.setVisible(true);
 		
+		//send text Panel
+		textPanel = new JPanel();
 		
-		sendPanel = new JPanel(new FlowLayout());
+		textTextArea = new JTextArea(10, 40);
+		textTextArea.setLineWrap(true);
+		textTextArea.setEditable(true);
+		textScrollPane = new JScrollPane(textTextArea);
+		textScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		textPanel.add(textScrollPane);
+		textPanel.setVisible(true);
+		textTextArea.addKeyListener( new KeyListener()
+				{
+					public void keyPressed(java.awt.event.KeyEvent p) 
+					{
+						if((p.getKeyCode() == KeyEvent.VK_ENTER) && (p.isControlDown())) 
+						{
+							chatTextArea.setText(chatTextArea.getText() + "\n" + textTextArea.getText());
+						}
+						
+						
+					}
+
+					public void keyReleased(java.awt.event.KeyEvent r) 
+					{
+						if((r.getKeyCode() == KeyEvent.VK_ENTER) && (r.isControlDown()))
+						{
+							textTextArea.setText("");
+						}
+
+					}
+
+					public void keyTyped(java.awt.event.KeyEvent t) 
+					{
+
+					}
+				});
+		
+		//send button Panel
+		sendPanel = new JPanel();
 		
 		sendButton = new JButton("Send");
-		sendButton.addActionListener(this);
+		sendButton.addActionListener(new ActionListener()
+		{
+		     public void actionPerformed(ActionEvent e)
+		     {
+		          chatTextArea.setText(chatTextArea.getText() + "\n" + textTextArea.getText());
+		          textTextArea.setText("");
+		     }
+			
+		});
 		sendPanel.add(sendButton);
+		textPanel.setVisible(true);
 		
-		frame.add(headPanel);
-		frame.add(chatPanel);
-		frame.add(textPanel);
-		frame.add(sendPanel);
+		//adding all Panels to the main Panel
+		mainPanel.add(headPanel);
+		mainPanel.add(chatPanel);
+		mainPanel.add(textPanel);
+		mainPanel.add(sendPanel);
+		
+		frame.setLayout(new GridLayout());		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setTitle("Student Chat GUI");
+		frame.setSize(new Dimension(500,800));
+		frame.setVisible(true);
+		
+		
 	}
-	
-	
-	public void actionPerformed(ActionEvent arg0) 
+
+	public void actionPerformed(ActionEvent e) 
 	{
 		
-		
 	}
-	
-	
-	
 	
 }
