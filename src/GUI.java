@@ -5,11 +5,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
-
+import javax.swing.border.EmptyBorder;
 import com.sun.glass.events.KeyEvent;
-
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +15,11 @@ import java.awt.event.KeyListener;
 
 public class GUI extends JFrame implements ActionListener
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	JFrame frame;
 	JPanel mainPanel, headPanel, chatPanel,textPanel, sendPanel;
 	JLabel headLabel;
@@ -36,12 +39,13 @@ public class GUI extends JFrame implements ActionListener
 		frame = new JFrame();
 				
 		//main panel
-		mainPanel = new JPanel(new GridLayout(4,1,0,0));
+		mainPanel = new JPanel();
 		frame.add(mainPanel);
 		mainPanel.setVisible(true);
 		
 		//header Panel
 		headPanel = new JPanel();
+		headPanel.setBorder(new EmptyBorder(10,10,10,10));
 		
 		headLabel = new JLabel("Student Chat GUI");
 		headPanel.add(headLabel);
@@ -63,13 +67,14 @@ public class GUI extends JFrame implements ActionListener
 		//send text Panel
 		textPanel = new JPanel();
 		
-		textTextArea = new JTextArea(10, 40);
+		textTextArea = new JTextArea(5, 40);
 		textTextArea.setLineWrap(true);
 		textTextArea.setEditable(true);
 		textScrollPane = new JScrollPane(textTextArea);
 		textScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		textPanel.add(textScrollPane);
 		textPanel.setVisible(true);
+		
 		textTextArea.addKeyListener( new KeyListener()
 				{
 					public void keyPressed(java.awt.event.KeyEvent p) 
@@ -99,7 +104,7 @@ public class GUI extends JFrame implements ActionListener
 		
 		//send button Panel
 		sendPanel = new JPanel();
-		
+
 		sendButton = new JButton("Send");
 		sendButton.addActionListener(new ActionListener()
 		{
@@ -122,7 +127,7 @@ public class GUI extends JFrame implements ActionListener
 		frame.setLayout(new GridLayout());		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Student Chat GUI");
-		frame.setSize(new Dimension(500,800));
+		frame.setSize(new Dimension(500,500));
 		frame.setVisible(true);
 		
 		

@@ -45,7 +45,7 @@ public class Conversation
 			
 			String sTwoCTwo = s2.getResponses()[1];
 			//System.out.println(s2 + sTwoCTwo);
-			returnString += (s2 + sTwoCOne + "\n");
+			returnString += (s2 + sTwoCTwo + "\n");
 			
 			String sOneCThree = s1.getResponses()[2];
 			//System.out.println(s1 + sOneCThree);
