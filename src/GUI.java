@@ -26,7 +26,6 @@ public class GUI extends JFrame implements ActionListener
 	
 	Conversation conversation = new Conversation();
 	
-	
 	public GUI()
 	{
 		
@@ -54,7 +53,7 @@ public class GUI extends JFrame implements ActionListener
 		chatTextArea = new JTextArea(10,40);
 		chatTextArea.setLineWrap(true);
 		chatTextArea.setEditable(false);
-		chatTextArea.append(conversation.toString());
+		chatTextArea.append(conversation.haveConversation());
 		chatScrollPane = new JScrollPane(chatTextArea);
 		chatScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		
