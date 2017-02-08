@@ -18,8 +18,7 @@ public class Conversation
 		
 		Set<Student> students = new HashSet<Student>();
 		
-		
-	public void haveConversation()
+	public String haveConversation()
 	{
 		students = student.StudentHashSet(student.getArray());
 
@@ -28,42 +27,56 @@ public class Conversation
 		
 		sortStudents(s1, s2);
 		
+		String returnString = "";
+		
 		if(s1 != s2)
 		{
 			String sOneCOne = s1.getResponses()[0];
-			System.out.println(s1 + sOneCOne);
+			//System.out.println(s1 + sOneCOne);
+			returnString += (s1 + sOneCOne + "\n");
 			
 			String sTwoCOne = s2.getResponses()[0];
-			System.out.println(s2 + sTwoCOne);
+			//System.out.println(s2 + sTwoCOne);
+			returnString += (s2 + sTwoCOne + "\n");
 			
 			String sOneCTwo = s1.getResponses()[1];
-			System.out.println(s1 + sOneCTwo);
+			//System.out.println(s1 + sOneCTwo);
+			returnString += (s1 + sOneCTwo + "\n");
 			
 			String sTwoCTwo = s2.getResponses()[1];
-			System.out.println(s2 + sTwoCTwo);
+			//System.out.println(s2 + sTwoCTwo);
+			returnString += (s2 + sTwoCTwo + "\n");
 			
 			String sOneCThree = s1.getResponses()[2];
-			System.out.println(s1 + sOneCThree);
+			//System.out.println(s1 + sOneCThree);
+			returnString += (s1 + sOneCThree + "\n");
 			
 			String sTwoCThree = s2.getResponses()[2];
-			System.out.println(s2 + sTwoCThree);
+			//System.out.println(s2 + sTwoCThree);
+			returnString += (s2 + sTwoCThree + "\n");
 			
 			String sOneCFour = s1.getResponses()[3];
-			System.out.println(s1 + sOneCFour);
+			//System.out.println(s1 + sOneCFour);
+			returnString += (s1 + sOneCFour + "\n");
 			
 			String sTwoCFour = s2.getResponses()[3];
-			System.out.println(s2 + sTwoCFour);
+			//System.out.println(s2 + sTwoCFour);
+			returnString += (s2 + sTwoCFour + "\n");
 			
 			String sOneCFive = s1.getResponses()[4];
-			System.out.println(s1 + sOneCFive);
+			//System.out.println(s1 + sOneCFive);
+			returnString += (s1 + sOneCFive + "\n");
 			
 			String sTwoCFive = s2.getResponses()[4];
-			System.out.println(s2 + sTwoCFive);
+			//System.out.println(s2 + sTwoCFive);
+			returnString += (s2 + sTwoCFive + "\n");
 		}
 		else
 		{
 			s2 = student.getRandomStudent(students);
 		}
+		
+		return returnString;
 		
 	}
 	
@@ -93,6 +106,7 @@ public class Conversation
 		    }
 		});
 	}
+	
 	
 		
 }
