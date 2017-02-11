@@ -12,11 +12,11 @@ public class Conversation
 		
 	}
 	
-		Responses response	 = new Responses("", "", "", "", "");
-		Student student = new Student("", "", 0, response);
-		//Conversation conversation = new Conversation();
+	Responses response	 = new Responses("", "", "", "", "");
+	Student student = new Student("", "", 0, response);
+	//Conversation conversation = new Conversation();
 		
-		Set<Student> students = new HashSet<Student>();
+	Set<Student> students = new HashSet<Student>();
 		
 	public String haveConversation()
 	{
