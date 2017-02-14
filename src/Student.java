@@ -12,7 +12,7 @@ public class Student
 	public int score;
 	public String convoPiece;
 	
-	Responses responses = new Responses(convoPiece, convoPiece, convoPiece, convoPiece, convoPiece);
+	public Responses responses = new Responses(convoPiece, convoPiece, convoPiece, convoPiece, convoPiece);
 	
 	public Student(String firstName, String lastName, int score, Responses responses) 
 	{
@@ -71,7 +71,7 @@ public class Student
 		return responseArray;
 	}
 	
-	public void setResponses()
+	public void setResponses(Responses responses)
 	{
 		this.responses = responses;
 	}

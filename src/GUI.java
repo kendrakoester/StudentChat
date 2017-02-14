@@ -13,7 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 
-public class GUI extends JFrame implements ActionListener
+public class GUI extends JFrame 
 {
 	/**
 	 * 
@@ -54,7 +54,7 @@ public class GUI extends JFrame implements ActionListener
 		//chat Panel
 		chatPanel = new JPanel();
 		
-		chatTextArea = new JTextArea(10,40);
+		chatTextArea = new JTextArea(12,40);
 		chatTextArea.setLineWrap(true);
 		chatTextArea.setEditable(false);
 		chatTextArea.append(conversation.haveConversation());
@@ -67,7 +67,7 @@ public class GUI extends JFrame implements ActionListener
 		//send text Panel
 		textPanel = new JPanel();
 		
-		textTextArea = new JTextArea(5, 40);
+		textTextArea = new JTextArea(3, 40);
 		textTextArea.setLineWrap(true);
 		textTextArea.setEditable(true);
 		textScrollPane = new JScrollPane(textTextArea);
@@ -127,15 +127,12 @@ public class GUI extends JFrame implements ActionListener
 		frame.setLayout(new GridLayout());		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Student Chat GUI");
-		frame.setSize(new Dimension(500,500));
+		frame.setSize(new Dimension(500,420));
 		frame.setVisible(true);
 		
 		
 	}
 
-	public void actionPerformed(ActionEvent e) 
-	{
-		
-	}
+	
 	
 }

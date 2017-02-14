@@ -1,5 +1,3 @@
-import javax.swing.JFrame;
-
 public class StudentChat
 {
 
@@ -7,10 +5,7 @@ public class StudentChat
 	{
 		GUI gui = new GUI();
 		gui.showGUI();
-		
 				   
-	}
-	
-	
+	}	
 
 }
