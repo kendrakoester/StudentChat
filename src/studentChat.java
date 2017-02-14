@@ -5,10 +5,7 @@ public class StudentChat
 	{
 		GUI gui = new GUI();
 		gui.showGUI();
-		
 				   
-	}
-	
-	
+	}	
 
 }
