@@ -4,6 +4,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 import com.sun.glass.events.KeyEvent;
@@ -12,6 +13,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
+import java.net.InetAddress;
 
 public class GUI extends JFrame 
 {
@@ -22,21 +24,22 @@ public class GUI extends JFrame
 	
 	JFrame frame;
 	JPanel mainPanel, headPanel, chatPanel,textPanel, sendPanel;
-	JLabel headLabel;
+	JLabel headLabel, userNameLabel;
+	JTextField userNameTextField;
 	JScrollPane chatScrollPane, textScrollPane;
 	JTextArea chatTextArea, textTextArea;
-	JButton sendButton;
+	JButton sendButton, connectButton;
 	
 	Conversation conversation = new Conversation();
 	
-	public GUI()
+	public GUI(InetAddress address, int port)
 	{
 		
 	}
 	
 	public void showGUI()
 	{
-		frame = new JFrame();
+		frame = new JFrame("Student Chat GUI");
 				
 		//main panel
 		mainPanel = new JPanel();
@@ -47,9 +50,20 @@ public class GUI extends JFrame
 		headPanel = new JPanel();
 		headPanel.setBorder(new EmptyBorder(10,10,10,10));
 		
-		headLabel = new JLabel("Student Chat GUI");
-		headPanel.add(headLabel);
+		//headLabel = new JLabel("Student Chat GUI");
+		//headPanel.add(headLabel);
+		//headPanel.setVisible(true);
+		
+		userNameLabel = new JLabel("Username: ");
+		headPanel.add(userNameLabel);
 		headPanel.setVisible(true);
+		userNameTextField = new JTextField(20);
+		headPanel.add(userNameTextField);
+		headPanel.setVisible(true);
+		connectButton = new JButton("Connect");
+		headPanel.add(connectButton);
+		headPanel.setVisible(true);
+		
 		
 		//chat Panel
 		chatPanel = new JPanel();
