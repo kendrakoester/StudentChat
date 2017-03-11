@@ -15,7 +15,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.net.InetAddress;
 
-public class GUI extends JFrame 
+public class ClientGUI extends JFrame 
 {
 	/**
 	 * 
@@ -32,7 +32,7 @@ public class GUI extends JFrame
 	
 	Conversation conversation = new Conversation();
 	
-	public GUI(InetAddress address, int port)
+	public ClientGUI()
 	{
 		
 	}
@@ -49,11 +49,7 @@ public class GUI extends JFrame
 		//header Panel
 		headPanel = new JPanel();
 		headPanel.setBorder(new EmptyBorder(10,10,10,10));
-		
-		//headLabel = new JLabel("Student Chat GUI");
-		//headPanel.add(headLabel);
-		//headPanel.setVisible(true);
-		
+
 		userNameLabel = new JLabel("Username: ");
 		headPanel.add(userNameLabel);
 		headPanel.setVisible(true);
