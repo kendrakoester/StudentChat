@@ -11,6 +11,7 @@ public class Server implements Runnable {
 	PrintWriter client;
 	ArrayList clientOutputStreams;
 
+
 	public Server(Socket clientSocket, PrintWriter user) {
 		client = user;
 		try {
@@ -20,7 +21,7 @@ public class Server implements Runnable {
 		} // end try
 		catch (Exception ex) {
 			System.out.println("Error beginning StreamReader. \n");
-		} 
+		}
 	}
 
 	public void run() {
@@ -41,12 +42,12 @@ public class Server implements Runnable {
 				if (data[2].equals(connect)) {
 
 					tellEveryone((data[0] + ":" + data[1] + ":" + chat));
-					//userAdd(data[0]);
+					// userAdd(data[0]);
 
 				} else if (data[2].equals(disconnect)) {
 
 					tellEveryone((data[0] + ":has disconnected." + ":" + chat));
-					//userRemove(data[0]);
+					// userRemove(data[0]);
 
 				} else if (data[2].equals(chat)) {
 
@@ -63,24 +64,26 @@ public class Server implements Runnable {
 			ex.printStackTrace();
 		} // end catch
 	} // end run()
-	
+
 	public void tellEveryone(String message) {
 		// sends message to everyone connected to server
-			Iterator it = clientOutputStreams.iterator();
+		Iterator it = clientOutputStreams.iterator();
 
-			while (it.hasNext()) {
-				try {
-					PrintWriter writer = (PrintWriter) it.next();
-					writer.println(message);
-					System.out.println("Sending: " + message + "\n");
-	                                writer.flush();
-	                                //outputPane.setCaretPosition(outputPane.getDocument().getLength());
+		while (it.hasNext()) {
+			try {
+				PrintWriter writer = (PrintWriter) it.next();
+				writer.println(message);
+				System.out.println("Sending: " + message + "\n");
+				writer.flush();
+				// outputPane.setCaretPosition(outputPane.getDocument().getLength());
 
-				} // end try
-				catch (Exception ex) {
-					System.out.println("Error telling everyone. \n");
-				} // end catch
-			} // end while
-		}
+			} // end try
+			catch (Exception ex) {
+				System.out.println("Error telling everyone. \n");
+			} // end catch
+		} // end while
+	}
+
+	
 
 }

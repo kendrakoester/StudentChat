@@ -13,22 +13,26 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
+import java.io.BufferedReader;
+import java.io.PrintWriter;
 import java.net.InetAddress;
+import java.util.ArrayList;
 
 public class ClientGUI extends JFrame 
 {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
+	
+	PrintWriter writer;
+	BufferedReader reader;
+    ArrayList<String> userList = new ArrayList();
 	
 	JFrame frame;
 	JPanel mainPanel, headPanel, chatPanel,textPanel, sendPanel;
-	JLabel headLabel, userNameLabel;
-	JTextField userNameTextField;
+	JLabel headLabel;
 	JScrollPane chatScrollPane, textScrollPane;
 	JTextArea chatTextArea, textTextArea;
-	JButton sendButton, connectButton;
+	JButton sendButton;
 	
 	Conversation conversation = new Conversation();
 	
@@ -50,17 +54,6 @@ public class ClientGUI extends JFrame
 		headPanel = new JPanel();
 		headPanel.setBorder(new EmptyBorder(10,10,10,10));
 
-		userNameLabel = new JLabel("Username: ");
-		headPanel.add(userNameLabel);
-		headPanel.setVisible(true);
-		userNameTextField = new JTextField(20);
-		headPanel.add(userNameTextField);
-		headPanel.setVisible(true);
-		connectButton = new JButton("Connect");
-		headPanel.add(connectButton);
-		headPanel.setVisible(true);
-		
-		
 		//chat Panel
 		chatPanel = new JPanel();
 		
@@ -139,9 +132,59 @@ public class ClientGUI extends JFrame
 		frame.setTitle("Student Chat GUI");
 		frame.setSize(new Dimension(500,420));
 		frame.setVisible(true);
-		
-		
+			
 	}
+	
+	public class IncomingReader implements Runnable{
+
+        public void run() {
+            String[] data;
+            String stream, done = "Done", connect = "Connect", disconnect = "Disconnect", chat = "Chat";
+
+            try {
+                while ((stream = reader.readLine()) != null) {
+
+                    data = stream.split(":");
+
+                     if (data[2].equals(chat)) {
+
+                        chatTextArea.append(data[0] + ": " + data[1] + "\n");
+                        chatTextArea.setCaretPosition(chatTextArea.getDocument().getLength());
+
+                    } else if (data[2].equals(connect)){
+
+                        chatTextArea.removeAll();
+                        //userAdd(data[0]);
+                        userList.add(data[0]);
+
+                    } else if (data[2].equals(disconnect)) {
+
+                        //userRemove(data[0]);
+                        chatTextArea.append(data[0] + " has disconnected.\n");
+
+                    } else if (data[2].equals(done)) {
+
+                        writeUsers();
+                        userList.clear();
+
+                    }
+                 
+                }
+           }catch(Exception ex) {
+           }
+        }
+    }
+	
+	public void writeUsers() {
+        String[] tempList = new String[(userList.size())];
+        userList.toArray(tempList);
+        for (String token:tempList) {
+
+            System.out.println("Current list of users\n" + token + "\n");
+
+        }
+
+    }
 
 	
 	
