@@ -16,33 +16,32 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
-public class ServerGUI {
-	JFrame frame;
-	JPanel mainPanel;
-	JLabel headLabel;
-	static JTextArea connectTextArea;
-	JButton startButton, stopButton;
-
+public class GUIServer {
+	/**
+	 * barrowd code from a Youtube tutorial to get started
+	 */
 	
-	PrintWriter writer;
-	BufferedReader reader;
-	Boolean isConnected = false;
-
 	ArrayList<PrintWriter> clientOutputStreams;
 	ArrayList<String> onlineUsers;
 
-	public ServerGUI() {
+	JFrame frame;
+	JPanel mainPanel;
+	JLabel headLabel;
+	JTextArea connectTextArea;
+	JButton startButton, stopButton;
+
+	public GUIServer() {
 
 	}
 
 	public void guiServer() {
 		frame = new JFrame();
 
-		mainPanel = new JPanel(new GridLayout(0,1));
+		mainPanel = new JPanel();
 
 		mainPanel.setVisible(true);
 		mainPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-		
+
 		startButton = new JButton("Start Server");
 		mainPanel.add(startButton);
 		mainPanel.setVisible(true);
@@ -52,11 +51,11 @@ public class ServerGUI {
 			}
 
 		});
-		
-		connectTextArea = new JTextArea(300,200);
+
+		connectTextArea = new JTextArea(300, 200);
 		mainPanel.add(connectTextArea);
 		mainPanel.setVisible(true);
-		
+
 		frame.add(mainPanel);
 		frame.setLayout(new GridLayout(0, 1));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -65,39 +64,6 @@ public class ServerGUI {
 		frame.setVisible(true);
 	}
 
-	private void startButtonActionPerformed() {
-		Thread starter = new Thread(new ServerStart());
-		starter.start();
-
-		System.out.println("Server started. \n");
-	}
-
-	public class ServerStart implements Runnable {
-		public void run() {
-			clientOutputStreams = new ArrayList<PrintWriter>();
-			onlineUsers = new ArrayList<String>();
-
-			try {
-				ServerSocket serverSock = new ServerSocket(8090);
-
-				while (true) {
-
-					Socket clientSock = serverSock.accept();
-					PrintWriter writer = new PrintWriter(clientSock.getOutputStream());
-					clientOutputStreams.add(writer);
-
-					Thread listener = new Thread(new ClientHandler(clientSock, writer));
-					listener.start();
-					System.out.println("Got a connection. \n");
-				} 
-			} 
-			catch (Exception ex) {
-				System.out.println("Error making a connection. \n");
-			} 
-
-		} 
-	}
-	
 	public class ClientHandler implements Runnable {
 		BufferedReader reader;
 		Socket sock;
@@ -109,12 +75,12 @@ public class ServerGUI {
 				sock = clientSocket;
 				InputStreamReader isReader = new InputStreamReader(sock.getInputStream());
 				reader = new BufferedReader(isReader);
-			} 
+			}
 			catch (Exception ex) {
-				System.out.println("Error beginning StreamReader. \n");
+				connectTextArea.append("Error beginning StreamReader. \n");
 			} 
 
-		} 
+		}
 
 		public void run() {
 			String message, connect = "Connect", disconnect = "Disconnect", chat = "Chat";
@@ -123,11 +89,11 @@ public class ServerGUI {
 			try {
 				while ((message = reader.readLine()) != null) {
 
-					System.out.println("Received: " + message + "\n");
+					connectTextArea.append("Received: " + message + "\n");
 					data = message.split(":");
 					for (String token : data) {
 
-						System.out.println(token + "\n");
+						connectTextArea.append(token + "\n");
 
 					}
 
@@ -146,41 +112,65 @@ public class ServerGUI {
 						tellEveryone(message);
 
 					} else {
-						System.out.println("No Conditions were met. \n");
+						connectTextArea.append("No Conditions were met. \n");
 					}
 
-				} // end while
-			} // end try
+				} 
+			} 
 			catch (Exception ex) {
-				System.out.println("Lost a connection. \n");
+				connectTextArea.append("Lost a connection. \n");
 				ex.printStackTrace();
 				clientOutputStreams.remove(client);
-			} // end catch
-		} // end run()
-	} // end class ClientHandler
+			} 
+		} 
+	} 
 
-	public void tellEveryone(String message) {
-		// sends message to everyone connected to server
-		Iterator<PrintWriter> it = clientOutputStreams.iterator();
+	private void startButtonActionPerformed() {
+		Thread starter = new Thread(new ServerStart());
+		starter.start();
 
-		while (it.hasNext()) {
+		connectTextArea.append("Server started. \n");
+	}
+
+	@SuppressWarnings("unused")
+	private void stopButtonActionPerformed() {
+
+		tellEveryone("Server:is stopping and all users will be disconnected.\n:Chat");
+		connectTextArea.append("Server stopping... \n");
+
+	}
+
+	public class ServerStart implements Runnable {
+		public void run() {
+			clientOutputStreams = new ArrayList<PrintWriter>();
+			onlineUsers = new ArrayList<String>();
+
 			try {
-				PrintWriter writer = (PrintWriter) it.next();
-				writer.println(message);
-				connectTextArea.setText("Sending: " + message + "\n");
-				writer.flush();
-			} // end try
+				@SuppressWarnings("resource")
+				ServerSocket serverSock = new ServerSocket(8090);
+
+				while (true) {
+					Socket clientSock = serverSock.accept();
+					PrintWriter writer = new PrintWriter(clientSock.getOutputStream());
+					clientOutputStreams.add(writer);
+
+					Thread listener = new Thread(new ClientHandler(clientSock, writer));
+					listener.start();
+					connectTextArea.append("Got a connection. \n");
+				}
+			} 
 			catch (Exception ex) {
-				System.out.println("Error telling everyone. \n");
-			} // end catch
-		} // end while
+				connectTextArea.append("Error making a connection. \n");
+			} 
+
+		} 
 	}
 
 	public void userAdd(String data) {
-		String message, add = ": :Connect", done = "User added, start chatting", name = data;
-		System.out.println("Before " + name + " added. \n");
+		String message, add = ": :Connect", done = "Server: :Done", name = data;
+		connectTextArea.append("Before " + name + " added. \n");
 		onlineUsers.add(name);
-		System.out.println("After " + name + " added. \n");
+		connectTextArea.append("After " + name + " added. \n");
 		String[] tempList = new String[(onlineUsers.size())];
 		onlineUsers.toArray(tempList);
 
@@ -205,5 +195,22 @@ public class ServerGUI {
 		}
 		tellEveryone(done);
 	}
-	
+
+	public void tellEveryone(String message) {
+		Iterator<PrintWriter> it = clientOutputStreams.iterator();
+
+		while (it.hasNext()) {
+			try {
+				PrintWriter writer = (PrintWriter) it.next();
+				writer.println(message);
+				connectTextArea.append("Sending: " + message + "\n");
+				writer.flush();
+				connectTextArea.setCaretPosition(connectTextArea.getDocument().getLength());
+
+			} 
+			catch (Exception ex) {
+				connectTextArea.append("Error telling everyone. \n");
+			} 
+		} 
+	} 
 }

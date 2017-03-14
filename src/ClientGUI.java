@@ -8,14 +8,17 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 import com.sun.glass.events.KeyEvent;
+
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetAddress;
+import java.net.Socket;
 import java.util.ArrayList;
 
 public class ClientGUI extends JFrame 
@@ -26,13 +29,17 @@ public class ClientGUI extends JFrame
 	PrintWriter writer;
 	BufferedReader reader;
     ArrayList<String> userList = new ArrayList();
-	
+    String username, serverIP;
+    Socket sock;
+	int port = 8090;
+	Boolean isConnected = false;
 	JFrame frame;
 	JPanel mainPanel, headPanel, chatPanel,textPanel, sendPanel;
-	JLabel headLabel;
+	JLabel headLabel, ipLabel, userNameLabel;
 	JScrollPane chatScrollPane, textScrollPane;
 	JTextArea chatTextArea, textTextArea;
-	JButton sendButton;
+	JButton sendButton, connectButton;
+	JTextField ipTextField,userNameTextField;;
 	
 	Conversation conversation = new Conversation();
 	
@@ -53,7 +60,30 @@ public class ClientGUI extends JFrame
 		//header Panel
 		headPanel = new JPanel();
 		headPanel.setBorder(new EmptyBorder(10,10,10,10));
+		ipLabel = new JLabel("IP address: ");
+		headPanel.add(ipLabel);
+		headPanel.setVisible(true);
+		ipTextField = new JTextField(10);
+		headPanel.add(ipTextField);
+		headPanel.setVisible(true);
+		
 
+		userNameLabel = new JLabel("Username: ");
+		headPanel.add(userNameLabel);
+		headPanel.setVisible(true);
+		userNameTextField = new JTextField(10);
+		headPanel.add(userNameTextField);
+		headPanel.setVisible(true);
+		
+		connectButton = new JButton("Connect");
+		headPanel.add(connectButton);
+		headPanel.setVisible(true);
+		connectButton.addActionListener(new ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				connectButtonActionPerformed();
+			}
+
+		});
 		//chat Panel
 		chatPanel = new JPanel();
 		
@@ -113,8 +143,9 @@ public class ClientGUI extends JFrame
 		{
 		     public void actionPerformed(ActionEvent e)
 		     {
-		          chatTextArea.setText(chatTextArea.getText() + "\n" + textTextArea.getText());
-		          textTextArea.setText("");
+		          //chatTextArea.setText(chatTextArea.getText() + "\n" + textTextArea.getText());
+		          //textTextArea.setText("");
+		    	 sendButtonActionPerformed();
 		     }
 			
 		});
@@ -185,7 +216,52 @@ public class ClientGUI extends JFrame
         }
 
     }
+	
+	private void sendButtonActionPerformed() {                                           
+        username = userNameTextField.getText();
+        if ((textTextArea.getText()).equals("")) {
 
+        } else {
+            try {
+               writer.println(username + ":" + textTextArea.getText() + ":" + "Chat");
+               writer.flush(); // flushes the buffer
+            } catch (Exception ex) {
+                chatTextArea.append("Enter IP and User to connect. \n");
+            }
+        }
+
+        textTextArea.setText("");
+        textTextArea.requestFocus();
+    }
+	
+	private void connectButtonActionPerformed() {                                              
+
+            if (isConnected == false) {
+            username = userNameTextField.getText();
+            serverIP = ipTextField.getText();
+            userNameTextField.setEditable(false);
+
+            try {
+                sock = new Socket(serverIP, port);
+                InputStreamReader streamreader = new InputStreamReader(sock.getInputStream());
+                reader = new BufferedReader(streamreader);
+                writer = new PrintWriter(sock.getOutputStream());
+                writer.println(username + " : has connected.:Connect");
+                
+                writer.flush();
+                isConnected = true; 
+                
+            } catch (Exception ex) {
+                ServerGUI.connectTextArea.setText("DENY cannont connect, start server and try again. \n");
+                ServerGUI gui = new ServerGUI();
+				gui.guiServer();
+            }
+            Thread IncomingReader = new Thread(new IncomingReader());
+	         IncomingReader.start();
+        } else if (isConnected == true) {
+        	ServerGUI.connectTextArea.setText("You are already connected. \n");
+        }
+    }
 	
 	
 }
