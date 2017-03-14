@@ -38,7 +38,7 @@ public class ServerGUI {
 	public void guiServer() {
 		frame = new JFrame();
 
-		mainPanel = new JPanel(new GridLayout(0,1));
+		mainPanel = new JPanel();
 
 		mainPanel.setVisible(true);
 		mainPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -58,7 +58,7 @@ public class ServerGUI {
 		mainPanel.setVisible(true);
 		
 		frame.add(mainPanel);
-		frame.setLayout(new GridLayout(0, 1));
+		frame.setLayout(new GridLayout());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Connect with IP");
 		frame.setSize(new Dimension(300, 300));
@@ -149,31 +149,31 @@ public class ServerGUI {
 						System.out.println("No Conditions were met. \n");
 					}
 
-				} // end while
-			} // end try
+				} 
+			}
 			catch (Exception ex) {
 				System.out.println("Lost a connection. \n");
 				ex.printStackTrace();
 				clientOutputStreams.remove(client);
-			} // end catch
-		} // end run()
-	} // end class ClientHandler
+			}
+		}
+	} 
 
 	public void tellEveryone(String message) {
-		// sends message to everyone connected to server
 		Iterator<PrintWriter> it = clientOutputStreams.iterator();
 
 		while (it.hasNext()) {
 			try {
 				PrintWriter writer = (PrintWriter) it.next();
 				writer.println(message);
+				//GUIClient.chatTextArea.repaint();
 				connectTextArea.setText("Sending: " + message + "\n");
 				writer.flush();
-			} // end try
+			} 
 			catch (Exception ex) {
 				System.out.println("Error telling everyone. \n");
-			} // end catch
-		} // end while
+			}
+		}
 	}
 
 	public void userAdd(String data) {

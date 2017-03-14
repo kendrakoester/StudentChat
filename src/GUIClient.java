@@ -6,6 +6,7 @@ import java.awt.event.KeyListener;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -27,7 +28,7 @@ public class GUIClient extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 	String username, serverIP;
-	int Port = 8090;
+	int port = 8090;
 	Socket sock;
 	BufferedReader reader;
 	PrintWriter writer;
@@ -38,7 +39,8 @@ public class GUIClient extends JFrame{
 	JPanel mainPanel, headPanel, chatPanel, textPanel, sendPanel;
 	JLabel headLabel, ipLabel, userNameLabel;
 	JScrollPane chatScrollPane, textScrollPane;
-	JTextArea chatTextArea, textTextArea;
+	static JTextArea chatTextArea;
+	JTextArea textTextArea;
 	JButton sendButton, connectButton;
 	JTextField ipTextField, userNameTextField;;
 
@@ -168,7 +170,7 @@ public class GUIClient extends JFrame{
 
 					if (data[2].equals(chat)) {
 
-						chatTextArea.append(data[0] + ": " + data[1] + "\n");
+						chatTextArea.append(data[0] + ":" + data[1] + "\n");
 						chatTextArea.setCaretPosition(chatTextArea.getDocument().getLength());
 
 					} else if (data[2].equals(connect)) {
@@ -188,6 +190,7 @@ public class GUIClient extends JFrame{
 
 				}
 			} catch (Exception ex) {
+				ex.printStackTrace();
 			}
 		}
 	}
@@ -225,7 +228,7 @@ public class GUIClient extends JFrame{
 			serverIP = ipTextField.getText();
 
 			try {
-				sock = new Socket(serverIP, Port);
+				sock = new Socket(serverIP, port);
 				InputStreamReader streamreader = new InputStreamReader(sock.getInputStream());
 				reader = new BufferedReader(streamreader);
 				writer = new PrintWriter(sock.getOutputStream());
@@ -247,8 +250,7 @@ public class GUIClient extends JFrame{
 	private void sendButtonActionPerformed() {
 		String nothing = "";
 		if ((textTextArea.getText()).equals(nothing)) {
-			textTextArea.setText("");
-			textTextArea.requestFocus();
+
 		} else {
 			try {
 				writer.println(username + ":" + textTextArea.getText() + ":" + "Chat");
